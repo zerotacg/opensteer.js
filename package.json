@@ -1,0 +1,26 @@
+{
+  "name": "opensteer.js",
+  "version": "0.0.0",
+  "description": "JavaScript port of OpenSteer -- Steering Behaviors for Autonomous Characters",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zerotacg/opensteer.js.git"
+  },
+  "author": {
+    "name": "Tobias Peters",
+    "email": "tobias.peters@kreativeffekt.at",
+    "url": "https://github.com/zerotacg"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zerotacg/opensteer.js/issues"
+  },
+  "homepage": "https://github.com/zerotacg/opensteer.js",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
