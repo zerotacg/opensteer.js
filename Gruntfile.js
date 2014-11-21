@@ -5,20 +5,6 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    traceur: {
-      options: {
-        // traceur options here
-        files: [{
-          expand: true,
-          cwd: 'lib/es6',
-          src: ['*.js'],
-          dest: 'lib/es5'
-        }]
-      },
-      commonjs: {
-        modules: 'commonjs'
-      }
-    },
     nodeunit: {
       files: ['test/**/*_test.js']
     },
@@ -29,7 +15,7 @@ module.exports = function(grunt) {
       gruntfile: {
         src: 'Gruntfile.js'
       },
-      lib: {
+      main: {
         src: ['lib/**/*.js']
       },
       test: {
@@ -41,9 +27,9 @@ module.exports = function(grunt) {
         files: '<%= jshint.gruntfile.src %>',
         tasks: ['jshint:gruntfile']
       },
-      lib: {
-        files: '<%= jshint.lib.src %>',
-        tasks: ['jshint:lib', 'nodeunit']
+      main: {
+        files: '<%= jshint.main.src %>',
+        tasks: ['jshint:main', 'nodeunit']
       },
       test: {
         files: '<%= jshint.test.src %>',
@@ -55,10 +41,9 @@ module.exports = function(grunt) {
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-traceur');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
-  grunt.registerTask('default', ['traceur', 'jshint', 'nodeunit']);
+  grunt.registerTask('default', ['jshint', 'nodeunit']);
 
 };
