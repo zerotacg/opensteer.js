@@ -7,34 +7,25 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     traceur:{
       options: {
-        moduleNames: false,
-        experimental: true,
-        sourceMaps: false,
-        arrayComprehension: true,
-        generatorComprehension: true
         // traceur options here
       },
       commonjs: {
         options: {
-          modules: 'commonjs'
-        },
-        files: [{
-          expand: true,
-          cwd: 'lib',
-          src: ['*.js'],
-          dest: 'build/commonjs'
-        }]
+          modules: 'commonjs',
+          dir: {
+            indir: 'lib',
+            outdir: 'build/commonjs'
+          }
+        }
       },
       amd: {
         options: {
-          modules: 'amd'
-        },
-        files: [{
-          expand: true,
-          cwd: 'lib',
-          src: ['*.js'],
-          dest: 'build/amd'
-        }]
+          modules: 'amd',
+          dir: {
+            indir: 'lib',
+            outdir: 'build/amd'
+          }
+        }
       }
     },
     nodeunit: {
@@ -62,7 +53,7 @@ module.exports = function(grunt) {
       },
       main: {
         files: '<%= jshint.main.src %>',
-        tasks: ['jshint:main', 'nodeunit']
+        tasks: ['jshint:main', 'build', 'nodeunit']
       },
       test: {
         files: '<%= jshint.test.src %>',
@@ -76,7 +67,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-traceur');
+  grunt.loadTasks('tasks');
 
   // Default task.
   grunt.registerTask('build', ['traceur']);
