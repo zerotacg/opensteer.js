@@ -5,31 +5,30 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    traceur:{
+    main: {
+      src: 'src/main/jsx'
+    },
+    test: {
+      src: 'src/test/js'
+    },
+    react:{
       options: {
-        // traceur options here
+        harmony: true
       },
-      commonjs: {
-        options: {
-          modules: 'commonjs',
-          dir: {
-            indir: 'lib',
-            outdir: 'build/commonjs'
+      main: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= main.src %>',
+            src: ['**/*.jsx'],
+            dest: 'build',
+            ext: '.js'
           }
-        }
-      },
-      amd: {
-        options: {
-          modules: 'amd',
-          dir: {
-            indir: 'lib',
-            outdir: 'build/amd'
-          }
-        }
+        ]
       }
     },
     nodeunit: {
-      files: ['test/**/*_test.js']
+      files: ['<%= test.src %>/**/*_test.js']
     },
     jshint: {
       options: {
@@ -40,10 +39,10 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       main: {
-        src: ['lib/**/*.js']
+        src: ['build/**/*.js']
       },
       test: {
-        src: ['test/**/*.js']
+        src: ['<%= test.src %>/**/*.js']
       }
     },
     watch: {
@@ -52,7 +51,7 @@ module.exports = function(grunt) {
         tasks: ['jshint:gruntfile', 'build']
       },
       main: {
-        files: '<%= jshint.main.src %>',
+        files: '<%= main.src %>/**/*.jsx',
         tasks: ['jshint:main', 'build', 'nodeunit']
       },
       test: {
@@ -67,10 +66,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadTasks('tasks');
+  grunt.loadNpmTasks('grunt-react');
 
   // Default task.
-  grunt.registerTask('build', ['traceur']);
+  grunt.registerTask('build', ['react']);
   grunt.registerTask('default', ['jshint', 'nodeunit']);
 
 };

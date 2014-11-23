@@ -6,6 +6,10 @@
  * Licensed under the MIT license.
  */
 
-export function awesome() {
+function awesome() {
     return 'awesome';
 }
+
+module.exports = {
+    awesome: awesome
+};

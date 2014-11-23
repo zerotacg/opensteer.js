@@ -1,14 +1,21 @@
 var sqrt = Math.sqrt;
+/**
+ * @class opensteer.Vector
+ */
 class Vector {
-    constructor()
+    constructor( x, y, z )
     {
-        if( arguments.length )
+        if( x && y && z )
         {
-            this.set.apply( this, arguments );
+            this.setXYZ( x, y, z );
+        }
+        else if( x )
+        {
+            this.setObject( x );
         }
         else
         {
-            this.set( Vector.ZERO );
+            this.setXYZ( 0, 0, 0 );
         }
     }
 
@@ -21,11 +28,11 @@ class Vector {
     }
 
     /**
-     * @param o
+     * @param {opensteer.Vector} o
      * @param {number} o.x
      * @param {number} o.y
      * @param {number} o.z
-     * @returns {Vector} this
+     * @returns {opensteer.Vector} this
      */
     setObject( o )
     {
@@ -155,4 +162,4 @@ Vector.UZ   = new Vector( 0, 0, 1 );
 
 Vector.temp = new Vector();
 
-export default Vector;
+module.exports = Vector;

@@ -1,4 +1,4 @@
-export var frandom01 = Math.random;
+var frandom01 = Math.random;
 
 /**
  * @param {Number} initial
@@ -6,7 +6,7 @@ export var frandom01 = Math.random;
  * @param {Number} min
  * @param {Number} max
  */
-export function scalarRandomWalk( initial, walkspeed, min, max)
+function scalarRandomWalk( initial, walkspeed, min, max)
 {
     var next = initial + (((frandom01() * 2) - 1) * walkspeed);
     if (next < min) { return min; }
@@ -20,7 +20,7 @@ export function scalarRandomWalk( initial, walkspeed, min, max)
  * @param {number} x1
  * @returns {number}
  */
-export function interpolate( alpha, x0, x1 )
+function interpolate( alpha, x0, x1 )
 {
     return x0 + (( x1 - x0 ) * alpha);
 }
@@ -33,9 +33,16 @@ export function interpolate( alpha, x0, x1 )
  * @param {number} out1
  * @returns {number}
  */
-export function map( x, in0, in1, out0, out1 )
+function map( x, in0, in1, out0, out1 )
 {
     var relative = (x - in0) / (in1 - in0);
 
     return interpolate( relative, out0, out1 );
 }
+
+module.exports = {
+    frandom01: frandom01,
+    scalarRandomWalk: scalarRandomWalk,
+    interpolate: interpolate,
+    map: map
+};
