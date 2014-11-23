@@ -22,7 +22,7 @@ var opensteer = require('../build/commonjs/opensteer');
     test.ifError(value)
 */
 
-exports['awesome'] = {
+exports.awesome = {
   setUp: function(done) {
     // setup here
     done();
