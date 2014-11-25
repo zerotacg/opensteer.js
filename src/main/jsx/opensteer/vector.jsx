@@ -1,8 +1,8 @@
 var sqrt = Math.sqrt;
-/**
- * @class opensteer.Vector
- */
 class Vector {
+    /**
+     * @class opensteer.Vector
+     */
     constructor( x, y, z )
     {
         if( x && y && z )
@@ -32,13 +32,13 @@ class Vector {
      * @param {number} o.x
      * @param {number} o.y
      * @param {number} o.z
-     * @returns {opensteer.Vector} this
+     * @returns {Vector} this
      */
     setObject( o )
     {
       if ( o.x !== null ) { this.x = o.x; }
-      if ( o.y !== null ) { this.x = o.y; }
-      if ( o.z !== null ) { this.x = o.z; }
+      if ( o.y !== null ) { this.y = o.y; }
+      if ( o.z !== null ) { this.z = o.z; }
       return this;
     }
 

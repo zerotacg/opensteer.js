@@ -48,6 +48,16 @@ exports.vector = {
     test.done();
   },
 
+  'object': function(test) {
+    test.expect(3);
+    // tests here
+    var v = new Vector( { x: 1, y: 2, z: 3 } );
+    test.equal( v.x, 1, 'x should be 1.');
+    test.equal( v.y, 2, 'y should be 2.');
+    test.equal( v.z, 3, 'z should be 3.');
+    test.done();
+  },
+
   'equals': function(test) {
     test.expect(1);
     // tests here
