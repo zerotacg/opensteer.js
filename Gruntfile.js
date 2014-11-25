@@ -68,8 +68,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-react');
 
-  // Default task.
   grunt.registerTask('build', ['react']);
+  grunt.registerTask('test', ['build', 'nodeunit']);
+
+  // Default task.
   grunt.registerTask('default', ['jshint', 'nodeunit']);
 
 };
