@@ -1,10 +1,11 @@
 "use strict";
 
+/*
 define(function(require) {
   var Class  = require('opensteer/Class');
   var Vector = require('opensteer/Vector');
 
-  var Behavior = require('../Behavior');
+  var Behavior = require('../../../Behavior');
 
   return Class( Behavior, {
     pos: null
@@ -36,3 +37,4 @@ define(function(require) {
     }
   });
 }); 
+*/

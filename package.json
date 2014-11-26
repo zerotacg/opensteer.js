@@ -20,7 +20,7 @@
       "url": "https://github.com/zerotacg/opensteer.js/blob/master/LICENSE"
     }
   ],
-  "main": "lib/opensteer",
+  "main": "src/opensteer",
   "engines": {
     "node": ">= 0.8.0"
   },

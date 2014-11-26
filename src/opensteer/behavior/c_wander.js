@@ -1,10 +1,11 @@
 "use strict";
 
+/*
 define(function(require) {
   var Class  = require('opensteer/Class');
   var Vector = require('opensteer/Vector');
   var random = Math.random;
-  var Behavior = require('../Behavior');
+  var Behavior = require('../../../Behavior');
 
   return Class( Behavior, {
     speed: 12
@@ -44,3 +45,4 @@ define(function(require) {
     }
   });
 }); 
+*/

@@ -6,10 +6,10 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     main: {
-      src: 'src/main/js'
+      src: 'src'
     },
     test: {
-      src: 'src/test/js'
+      src: 'test'
     },
     nodeunit: {
       files: ['<%= test.src %>/**/*_test.js']

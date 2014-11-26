@@ -1,6 +1,6 @@
 'use strict';
 
-var opensteer = require('../main/js/opensteer');
+var opensteer = require('../src/opensteer');
 
 /*
   ======== A Handy Little Nodeunit Reference ========

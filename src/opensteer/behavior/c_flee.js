@@ -1,5 +1,5 @@
 "use strict";
-
+/*
 define(function(require) {
   var Class  = require('opensteer/Class');
   var Vector = require('opensteer/Vector');
@@ -16,3 +16,4 @@ define(function(require) {
     }
   });
 }); 
+*/
