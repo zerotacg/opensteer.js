@@ -6,26 +6,10 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     main: {
-      src: 'src/main/jsx'
+      src: 'src/main/js'
     },
     test: {
       src: 'src/test/js'
-    },
-    react:{
-      options: {
-        harmony: true
-      },
-      main: {
-        files: [
-          {
-            expand: true,
-            cwd: '<%= main.src %>',
-            src: ['**/*.jsx'],
-            dest: 'build',
-            ext: '.js'
-          }
-        ]
-      }
     },
     nodeunit: {
       files: ['<%= test.src %>/**/*_test.js']
@@ -39,7 +23,7 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       main: {
-        src: ['build/**/*.js']
+        src: ['<%= main.src %>/**/*.js']
       },
       test: {
         src: ['<%= test.src %>/**/*.js']
@@ -48,11 +32,11 @@ module.exports = function(grunt) {
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint:gruntfile', 'build']
+        tasks: ['jshint:gruntfile', 'default']
       },
       main: {
-        files: '<%= main.src %>/**/*.jsx',
-        tasks: ['jshint:main', 'build', 'nodeunit']
+        files: '<%= jshint.main.src %>',
+        tasks: ['jshint:main', 'nodeunit']
       },
       test: {
         files: '<%= jshint.test.src %>',
@@ -67,9 +51,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-react');
-
-  grunt.registerTask('build', ['react']);
-  grunt.registerTask('test', ['build', 'nodeunit']);
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'nodeunit']);

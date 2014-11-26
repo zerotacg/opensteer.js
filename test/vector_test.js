@@ -1,6 +1,6 @@
 'use strict';
 
-var Vector = require('../../../build/opensteer/vector');
+var Vector = require('../main/js/opensteer/vector');
 
 /*
   ======== A Handy Little Nodeunit Reference ========

@@ -1,9 +1,18 @@
-var sqrt = Math.sqrt;
-class Vector {
-    /**
-     * @class opensteer.Vector
-     */
-    constructor( x, y, z )
+var sqrt    = Math.sqrt
+  , clazz   = require('./utilities').clazz
+  ;
+
+var Vector = clazz({
+    x: 0
+  , y: 0
+  , z: 0
+
+  , constructor: function()
+    {
+        this.set.apply( this, arguments );
+    }
+
+  , set: function( x, y, z )
     {
         if( x && y && z )
         {
@@ -13,51 +22,40 @@ class Vector {
         {
             this.setObject( x );
         }
-        else
-        {
-            this.setXYZ( 0, 0, 0 );
-        }
     }
 
-    setXYZ( x, y, z )
+  , setXYZ: function( x, y, z )
     {
-      this.x  = x;
-      this.y  = y;
-      this.z  = z;
-      return this;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        return this;
     }
 
-    /**
-     * @param {opensteer.Vector} o
-     * @param {number} o.x
-     * @param {number} o.y
-     * @param {number} o.z
-     * @returns {Vector} this
-     */
-    setObject( o )
+  , setObject: function( o )
     {
-      if ( o.x !== null ) { this.x = o.x; }
-      if ( o.y !== null ) { this.y = o.y; }
-      if ( o.z !== null ) { this.z = o.z; }
-      return this;
+        if ( o.x !== null ) { this.x = o.x; }
+        if ( o.y !== null ) { this.y = o.y; }
+        if ( o.z !== null ) { this.z = o.z; }
+        return this;
     }
 
-    setX( x )
+  , setX: function( x )
     {
       this.x  = x;
     }
 
-    setY( y )
+  , setY: function( y )
     {
       this.y = y;
     }
 
-    setZ( z )
+  , setZ: function( z )
     {
       this.z = z;
     }
 
-    add(v)
+  , add: function(v)
     {
       this.x += v.x;
       this.y += v.y;
@@ -65,7 +63,7 @@ class Vector {
       return this;
     }
 
-    sub(v)
+  , sub: function(v)
     {
       this.x -= v.x;
       this.y -= v.y;
@@ -73,7 +71,7 @@ class Vector {
       return this;
     }
 
-    scale(f)
+  , scale: function(f)
     {
       this.x *= f;
       this.y *= f;
@@ -81,12 +79,12 @@ class Vector {
       return this;
     }
 
-    copy()
+  , copy: function()
     {
       return new Vector( this.x, this.y, this.z );
     }
 
-    all( f, args, scope )
+  , all: function( f, args, scope )
     {
       args = args || [];
       scope = scope || this;
@@ -97,12 +95,12 @@ class Vector {
       return this;
     }
 
-    dot( v )
+  , dot: function( v )
     {
       return this.x * v.x + this.y * v.y + this.z * v.z;
     }
 
-    cross( a, b )
+  , cross: function( a, b )
     {
       this.setX( (a.y * b.z) - (a.z * b.y) );
       this.setY( (a.z * b.x) - (a.x * b.z) );
@@ -110,17 +108,17 @@ class Vector {
       return this;
     }
 
-    squaredLength()
+  , squaredLength: function()
     {
       return this.dot( this );
     }
 
-    length()
+  , length: function()
     {
       return sqrt( this.squaredLength() );
     }
 
-    maxLength( max )
+  , maxLength: function( max )
     {
       var len = this.length();
       if( len > max )
@@ -130,7 +128,7 @@ class Vector {
       return this;
     }
 
-    normalize()
+  , normalize: function()
     {
       var len = this.length();
       if ( len !== 0 )
@@ -140,21 +138,22 @@ class Vector {
       return this;
     }
 
-    equals(v)
+  , equals: function(v)
     {
       return this.x === v.x && this.y === v.y && this.z === v.z;
     }
 
-    toArray()
+  , toArray: function()
     {
       return [ this.x , this.y, this.z ];
     }
 
-    toString()
+  , toString: function()
     {
       return '{ x: '+this.x + ', y: '+this.y + ', z: '+this.z + '}';
     }
-}
+});
+
 Vector.ZERO = new Vector( 0, 0, 0 );
 Vector.UX   = new Vector( 1, 0, 0 );
 Vector.UY   = new Vector( 0, 1, 0 );
