@@ -1,6 +1,6 @@
 'use strict';
 
-var CVector = require( '../src/opensteer/c_vector' );
+var CVector = require( '../src/opensteer/Vector' );
 
 /*
   ======== A Handy Little Nodeunit Reference ========

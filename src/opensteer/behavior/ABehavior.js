@@ -6,7 +6,7 @@ var clazz       = require('../utilities').clazz
   ;
 
 /**
- * @class ABehavior
+ * @class Behavior
  * @abstract
  */
 module.exports = clazz({
@@ -23,12 +23,4 @@ module.exports = clazz({
      * @return {CVector}
      */
   , desiredVelocity: abstract
-
-    /**
-     * @param {number} t absolute time
-     * @param {number} dt relative time
-     * @param {number} idt inverted relative time
-     * @return {CVector}
-     */
-  , getForce: abstract
 });

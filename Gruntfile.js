@@ -11,6 +11,9 @@ module.exports = function(grunt) {
     test: {
       src: 'test'
     },
+    example: {
+      src: 'example'
+    },
     nodeunit: {
       files: ['<%= test.src %>/**/*_test.js']
     },
@@ -27,6 +30,15 @@ module.exports = function(grunt) {
       },
       test: {
         src: ['<%= test.src %>/**/*.js']
+      },
+      example: {
+        options: {
+          globals: {
+            requirejs: true,
+            define: true
+          }
+        },
+        src: ['<%= example.src %>/**/*.js']
       }
     },
     watch: {
@@ -41,16 +53,18 @@ module.exports = function(grunt) {
       test: {
         files: '<%= jshint.test.src %>',
         tasks: ['jshint:test', 'nodeunit']
+      },
+      example: {
+        files: '<%= jshint.example.src %>',
+        tasks: ['jshint:example', 'nodeunit']
       }
     }
   });
 
   // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-react');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'nodeunit']);

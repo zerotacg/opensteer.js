@@ -6,13 +6,7 @@ if ( typeof define !== 'function' ) {
 define( function ( require ) {
     'use strict';
 
-    function awesome() {
-        return 'awesome';
-    }
-
     return {
-        awesome: awesome
-      , behavior: require( './opensteer/behavior' )
+        Seek: require( './behavior/Seek' )
     };
-
-} );
+});
