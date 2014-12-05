@@ -33,10 +33,7 @@ module.exports = function(grunt) {
       },
       example: {
         options: {
-          globals: {
-            requirejs: true,
-            define: true
-          }
+          jshintrc: './example/.jshintrc'
         },
         src: ['<%= example.src %>/**/*.js']
       }
