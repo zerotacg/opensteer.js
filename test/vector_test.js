@@ -1,6 +1,6 @@
 'use strict';
 
-var CVector = require( '../src/opensteer/Vector' );
+var Vector = require( '../src/opensteer/Vector' );
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -31,7 +31,7 @@ exports.vector = {
   'no args': function(test) {
     test.expect(3);
     // tests here
-    var v = new CVector();
+    var v = new Vector();
     test.equal( v.x, 0, 'x should be zero.' );
     test.equal( v.y, 0, 'y should be zero.' );
     test.equal( v.z, 0, 'z should be zero.' );
@@ -41,7 +41,7 @@ exports.vector = {
   'numbers': function(test) {
     test.expect(3);
     // tests here
-    var v = new CVector( 1, 2, 3 );
+    var v = new Vector( 1, 2, 3 );
     test.equal( v.x, 1, 'x should be 1.' );
     test.equal( v.y, 2, 'y should be 2.' );
     test.equal( v.z, 3, 'z should be 3.' );
@@ -51,7 +51,7 @@ exports.vector = {
   'object': function(test) {
     test.expect(3);
     // tests here
-    var v = new CVector( { x: 1, y: 2, z: 3 } );
+    var v = new Vector( { x: 1, y: 2, z: 3 } );
     test.equal( v.x, 1, 'x should be 1.' );
     test.equal( v.y, 2, 'y should be 2.' );
     test.equal( v.z, 3, 'z should be 3.' );
@@ -61,8 +61,8 @@ exports.vector = {
   'equals': function(test) {
     test.expect(1);
     // tests here
-    var v = new CVector();
-    test.ok( CVector.ZERO.equals(v), 'should be equal.' );
+    var v = new Vector();
+    test.ok( Vector.ZERO.equals(v), 'should be equal.' );
     test.done();
   }
 };

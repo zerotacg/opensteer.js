@@ -23,8 +23,6 @@ define( function( require ) {
 
       , dst_pos: undefined
 
-      , max_velocity: 1
-
       , constructor: function()
         {
             this.steer = new Vector();
@@ -39,7 +37,6 @@ define( function( require ) {
             steer.set( this.dst_pos )
                  .sub( this.src_pos )
                  .normalize()
-                 .scale( this.max_velocity )
             ;
             return steer;
         }

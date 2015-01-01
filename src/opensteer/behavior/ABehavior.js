@@ -20,7 +20,8 @@ module.exports = clazz({
     }
 
     /**
-     * @return {CVector}
+     * @return {Vector} the desired velocity
+     *   length between 0 and 1
      */
   , desiredVelocity: abstract
 });
