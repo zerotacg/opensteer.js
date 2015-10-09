@@ -6,9 +6,9 @@ if ( typeof define !== 'function' ) {
 define( function ( require ) {
     'use strict';
 
-    var sqrt  = Math.sqrt
-      , clazz = require('./utilities').clazz
-      ;
+    var sqrt  = Math.sqrt;
+    var utilities = require('./utilities');
+    var clazz = utilities.clazz;
 
     var Vector = clazz({
         x: 0

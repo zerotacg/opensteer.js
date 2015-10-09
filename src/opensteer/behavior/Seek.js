@@ -6,10 +6,10 @@ if ( typeof define !== 'function' ) {
 define( function( require ) {
     'use strict';
 
-    var clazz       = require('../utilities').clazz
-      , Vector      = require('../Vector')
-      , ABehavior   = require('./ABehavior')
-      ;
+    var utilities = require('../utilities');
+    var clazz       = utilities.clazz;
+    var Vector      = require('../Vector');
+    var ABehavior   = require('./ABehavior');
 
     /**
      * @class Seek

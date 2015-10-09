@@ -1,27 +1,32 @@
-'use strict';
+if ( typeof define !== 'function' ) {
+    /*jshint latedef:false */
+    var define = require('amdefine')(module);
+}
 
-var clazz       = require('../utilities').clazz
-  , apply       = require('../utilities').apply
-  , abstract    = require('../utilities').abstract
-  ;
+define(function ( require ) {
+    'use strict';
 
-/**
- * @class Behavior
- * @abstract
- */
-module.exports = clazz({
-    /**
-     * @constructor
-     * @param {Object} cfg
-     */
-    constructor: function( cfg )
-    {
-        apply( this, cfg );
-    }
+    var clazz = require('../utilities').clazz;
+    var apply = require('../utilities').apply;
+    var abstract = require('../utilities').abstract;
 
     /**
-     * @return {Vector} the desired velocity
-     *   length between 0 and 1
+     * @class Behavior
+     * @abstract
      */
-  , desiredVelocity: abstract
+    return clazz({
+        /**
+         * @constructor
+         * @param {Object} cfg
+         */
+        constructor: function ( cfg ) {
+            apply(this, cfg);
+        }
+
+        /**
+         * @return {Vector} the desired velocity
+         *   length between 0 and 1
+         */,
+        desiredVelocity: abstract
+    });
 });

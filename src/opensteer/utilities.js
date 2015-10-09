@@ -94,7 +94,7 @@ function applyIf()
     return basic;
 }
 
-function abstact()
+function abstract()
 {
     throw "Abstract method has to be implemented in subclass";
 }
@@ -131,14 +131,22 @@ function clazz( base, child )
     return cls;
 }
 
-module.exports = {
-    frandom01: frandom01
-  , scalarRandomWalk: scalarRandomWalk
-  , interpolate: interpolate
-  , map: map
-  , nop: nop
-  , apply: apply
-  , applyIf: applyIf
-  , clazz: clazz
-  , abstract: abstact
-};
+if ( typeof define !== 'function' ) {
+    /*jshint latedef:false */
+    var define = require( 'amdefine' )( module );
+}
+
+define( function( require ) {
+    'use strict';
+    return {
+        frandom01: frandom01,
+        scalarRandomWalk: scalarRandomWalk,
+        interpolate: interpolate,
+        map: map,
+        nop: nop,
+        apply: apply,
+        applyIf: applyIf,
+        clazz: clazz,
+        abstract: abstract
+    };
+});
