@@ -15,7 +15,6 @@ describe("opensteer", function () {
     });
     describe("#awesome", function () {
         it("should be awesome", function () {
-            expect(true).to.be.ok;
             expect(awesome()).to.equal("awesome");
         });
     });
