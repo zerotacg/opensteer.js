@@ -1,10 +1,3 @@
-requirejs.config({
-    paths: {
-        opensteer: '../src/opensteer'
-    }
-});
+import { awesome } from "opensteer";
 
-define( function ( require ) {
-    'use strict';
-    require( 'opensteer' );
-});
+console.log(awesome());

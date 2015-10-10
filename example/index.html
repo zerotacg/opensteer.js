@@ -3,7 +3,16 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script data-main="main" src="../bower_components/requirejs/require.js" ></script>
+    <script src="../jspm_packages/system.js"></script>
+    <script>
+        System.config({
+            baseURL: ".."
+        });
+    </script>
+    <script src="../config.js"></script>
+    <script>
+        System.import("example/main");
+    </script>
 </head>
 <body></body>
 </html>
