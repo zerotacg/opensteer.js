@@ -31,18 +31,15 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel/register",
+    "lint": "jshint src/**/*.js test/**/*.js",
+    "pretest": "npm run lint",
+    "test": "mocha --recursive --compilers js:babel/register",
     "postinstall": "jspm install"
   },
   "devDependencies": {
-    "amdefine": "^0.1.0",
     "babel": "^5.8.23",
     "chai": "^3.3.0",
-    "grunt": "~0.4.5",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-jshint": "~0.6.4",
-    "grunt-contrib-nodeunit": "~0.2.0",
-    "grunt-contrib-watch": "~0.5.3",
+    "jshint": "^2.8.0",
     "jshint-stylish": "^1.0.0",
     "jspm": "^0.16.12",
     "mocha": "^2.3.3"

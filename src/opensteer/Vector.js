@@ -146,9 +146,9 @@ export default class Vector {
     toString() {
         return '{ x: ' + this.x + ', y: ' + this.y + ', z: ' + this.z + '}';
     }
-};
+}
 
-export var ZERO = new Vector(0, 0, 0);
-export var UX = new Vector(1, 0, 0);
-export var UY = new Vector(0, 1, 0);
-export var UZ = new Vector(0, 0, 1);
+export const ZERO = new Vector(0, 0, 0);
+export const UX = new Vector(1, 0, 0);
+export const UY = new Vector(0, 1, 0);
+export const UZ = new Vector(0, 0, 1);

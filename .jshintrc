@@ -11,5 +11,9 @@
   "boss": true,
   "eqnull": true,
   "node": true,
-  "laxcomma": true
+  "laxcomma": true,
+  "esnext": true,
+  "globals": {
+    "System": true
+  }
 }
