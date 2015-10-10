@@ -136,7 +136,7 @@ if ( typeof define !== 'function' ) {
     var define = require( 'amdefine' )( module );
 }
 
-define( function( require ) {
+define( function() {
     'use strict';
     return {
         frandom01: frandom01,
