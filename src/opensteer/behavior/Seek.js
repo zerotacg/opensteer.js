@@ -1,44 +1,23 @@
-if ( typeof define !== 'function' ) {
-    /*jshint latedef:false */
-    var define = require( 'amdefine' )( module );
-}
+import ABehavior from "opensteer/behavior/ABehavior";
+import Vector from "opensteer/Vector";
 
-define( function( require ) {
-    'use strict';
+/**
+ * @class Seek
+ * @extends Behavior
+ */
+export default class Seek extends ABehavior {
 
-    var utilities = require('../utilities');
-    var clazz       = utilities.clazz;
-    var Vector      = require('../Vector');
-    var ABehavior   = require('./ABehavior');
+    constructor() {
+        super();
+        this.steer = new Vector();
+        this.src_pos = new Vector();
+        this.dst_pos = new Vector();
+    }
 
-    /**
-     * @class Seek
-     * @extends Behavior
-     */
-    return clazz( ABehavior, {
+    desiredVelocity() {
+        var steer = this.steer;
+        steer.set(this.dst_pos).sub(this.src_pos).normalize();
 
-        steer: undefined
-
-      , src_pos: undefined
-
-      , dst_pos: undefined
-
-      , constructor: function()
-        {
-            this.steer = new Vector();
-            this.src_pos = new Vector();
-            this.dst_pos = new Vector();
-            ABehavior.apply( this, arguments );
-        }
-
-      , desiredVelocity: function()
-        {
-            var steer = this.steer;
-            steer.set( this.dst_pos )
-                 .sub( this.src_pos )
-                 .normalize()
-            ;
-            return steer;
-        }
-    });
-});
+        return steer;
+    }
+};
