@@ -1,9 +1,23 @@
 import { expect } from "chai";
 
-import Vector, { ZERO } from "../src/opensteer/Vector";
+import jspm from "jspm";
+
+let System = jspm.Loader();
 
 describe("opensteer", function () {
     describe("Vector", function () {
+        var Vector, ZERO;
+
+        beforeEach("setup", function (done) {
+            System.import("opensteer/Vector")
+                .then(module => {
+                    Vector = module.default;
+                    ZERO = module.ZERO;
+                })
+                .then(done)
+            ;
+        });
+
         describe("#constructor()", function () {
             it("should initialize the components with zero", function () {
                 var v = new Vector();

@@ -8,7 +8,8 @@ System.config({
     ]
   },
   paths: {
-    "opensteer": "src/opensteer",
+    "opensteer/*": "src/opensteer/*",
+    "example/*": "src/example/*",
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
   },
