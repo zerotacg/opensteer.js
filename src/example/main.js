@@ -1,78 +1,99 @@
+import ReactDOM from "react/lib/ReactDOM";
+import React from "react";
 import Rx from "rx";
 import Vector from "opensteer/Vector";
 
-(function ( global ) {
-    var canvas, context, subscription;
+var canvas, subscription;
 
-    function init() {
+function init() {
 
-        var host = document.body;
+    var host = document.body;
 
-        canvas = document.createElement('canvas');
+    canvas = document.createElement('div');
 
-        canvas.width = 512;
-        canvas.height = 512;
+    host.appendChild(canvas);
+}
 
-        context = canvas.getContext('2d');
+function animate() {
+    var entity = Rx.Observable.return({
+        key: "entity-1",
+        pos: {
+            x: 256,
+            y: 0,
+            z: 0
+        },
+        last: {
+            x: 256 - 0.1,
+            y: 0,
+            z: 0
+        }
+    });
+    var physics = Rx.Observable.interval(20)
+        .combineLatest(entity, (tick, entity) => entity )
+        .map(physicsStep)
+    ;
 
-        host.appendChild(canvas);
+    subscription = Rx.Observable.interval(0, Rx.Scheduler.requestAnimationFrame)
+        .withLatestFrom(physics, (tick,entity) => [entity])
+        .subscribe(render)
+    ;
+}
+
+function physicsStep( entity ) {
+    var pos = new Vector(entity.pos);
+    var last = new Vector(entity.last || entity.pos);
+
+    entity.last = pos.toObject();
+
+    var speed = new Vector(pos);
+    speed.sub(last);
+    var force = new Vector(256, 256, 0);
+    force.sub(pos);
+    force.normalize();
+    force.scale(0.001);
+    speed.add(force);
+
+    pos.add(speed);
+    entity.pos = pos.toObject();
+
+    return entity;
+}
+
+class Entity extends React.Component {
+    constructor(props) {
+        super(props);
     }
 
-    function animate() {
-        var entity = Rx.Observable.return({
-            pos: { x: 0, y: 0, z: 0 },
-            last: { x: 0, y: 0, z: 0 }
-        });
-        var physics = Rx.Observable.interval(20)
-            .combineLatest(entity, physic)
-        ;
+    render() {
+        var pos = this.props.pos;
 
-        subscription = Rx.Observable.interval(0, Rx.Scheduler.requestAnimationFrame)
-            .withLatestFrom(physics)
-            .subscribe(draw)
-        ;
+        return React.DOM.div(
+            {
+                className: "entity",
+                style: {
+                    left: pos.x + "px",
+                    top: pos.y + "px"
+                }
+            }
+        );
     }
+}
 
-    var pos = new Vector();
-    var last = new Vector();
-    var speed = new Vector();
+var ENTITY = React.createFactory(Entity);
 
-    function physic( tick, entity ) {
-        var dt = 20;
-        var f = 1/dt;
-        var time = tick * dt * 0.002;
-        pos.set(entity.pos);
-        last.set(entity.last);
+function render( nodes ) {
+    ReactDOM.render(
+        React.DOM.div(
+            null,
+            nodes.map( node => ENTITY(node) )
+        ),
+        canvas
+    );
+}
 
-        speed.set(pos);
-        speed.sub(last);
-        speed.scale(f);
+function main() {
+    init();
+    animate();
+}
 
-        entity.last = pos.toObject();
-        entity.pos.x = Math.sin(time) * 192 + 256;
-        entity.pos.y = Math.cos(time * 0.9) * 192 + 256;
-
-        return entity;
-    }
-
-    function draw( frame ) {
-        var tick = frame[0];
-        var entity = frame[1];
-        var x = entity.pos.x;
-        var y = entity.pos.y;
-
-        var color = Math.floor(Math.sin(tick * 0.02) * 100 + 120);
-        context.fillStyle = 'rgb(20,20,'+color+')';
-        context.beginPath();
-        context.arc(x, y, 3, 0, Math.PI * 2, true);
-        context.closePath();
-        context.fill();
-    }
-
-    function main() {
-        init();
-        animate();
-    }
-
-    main();
-}(window));
+main();

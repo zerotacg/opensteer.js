@@ -47,6 +47,7 @@
   "keywords": [],
   "jspm": {
     "dependencies": {
+      "react": "npm:react@^0.14.0",
       "rx": "npm:rx@^4.0.1"
     },
     "devDependencies": {
