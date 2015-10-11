@@ -29,12 +29,13 @@ describe("opensteer", function () {
         });
 
         describe("#constructor(number, number, number)", function () {
-            it("should initialize with given values", function () {
-                var v = new Vector(1, 2, 3);
 
-                expect(v.x).to.equal(1);
-                expect(v.y).to.equal(2);
-                expect(v.z).to.equal(3);
+            it("should initialize with given values", function () {
+                var v = new Vector(0, 1, 2);
+
+                expect(v.x).to.equal(0);
+                expect(v.y).to.equal(1);
+                expect(v.z).to.equal(2);
             });
         });
 
@@ -48,12 +49,21 @@ describe("opensteer", function () {
             });
         });
 
-        describe("#equals", function () {
+        describe("#equals()", function () {
             context("when all components of the other vector are equal", function () {
-                it("should should return true", function () {
+                it("should return true", function () {
                     var v = new Vector();
                     expect(ZERO.equals(v)).to.be.true;
                 });
+            });
+        });
+
+        describe("#signature()", function () {
+            it("should a list of parameter types", function () {
+                var v = new Vector();
+
+                expect(v.signature([1,2,3])).to.equal("number,number,number");
+                expect(v.signature([{},undefined,undefined])).to.equal("object,undefined,undefined");
             });
         });
     });

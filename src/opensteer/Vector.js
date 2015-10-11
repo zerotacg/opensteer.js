@@ -15,14 +15,20 @@ export default class Vector {
      * @return {Vector} this
      */
     set( x, y, z ) {
-        if ( x && y && z ) {
-            this.setXYZ(x, y, z);
-        }
-        else if ( x ) {
+        var signature = this.signature([x,y,z]);
+
+        if ( signature === "object,undefined,undefined" ) {
             this.setObject(x);
+        }
+        else if ( signature === "number,number,number" ) {
+            this.setXYZ(x, y, z);
         }
 
         return this;
+    }
+
+    signature( args ) {
+        return args.map(parameter => typeof(parameter)).join(",");
     }
 
     setXYZ( x, y, z ) {
