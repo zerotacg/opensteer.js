@@ -1,20 +1,39 @@
 import ReactDOM from "react/lib/ReactDOM";
 import React from "react";
 import Rx from "rx";
+
+import Entity from "example/component/Entity";
 import Vector from "opensteer/Vector";
 
 var canvas, subscription;
 
+main();
+
+function main() {
+    init();
+    animate();
+}
+
 function init() {
-
     var host = document.body;
-
     canvas = document.createElement('div');
-
     host.appendChild(canvas);
 }
 
 function animate() {
+    var entity = createEntityStream();
+    var physics = Rx.Observable.interval(20)
+        .combineLatest(entity, (tick, entity) => entity )
+        .map(physicsStep)
+    ;
+
+    subscription = Rx.Observable.interval(0, Rx.Scheduler.requestAnimationFrame)
+        .withLatestFrom(physics, (tick,entity) => [entity])
+        .subscribe(render)
+    ;
+}
+
+function createEntityStream() {
     var entity = Rx.Observable.return({
         key: "entity-1",
         pos: {
@@ -28,15 +47,8 @@ function animate() {
             z: 0
         }
     });
-    var physics = Rx.Observable.interval(20)
-        .combineLatest(entity, (tick, entity) => entity )
-        .map(physicsStep)
-    ;
 
-    subscription = Rx.Observable.interval(0, Rx.Scheduler.requestAnimationFrame)
-        .withLatestFrom(physics, (tick,entity) => [entity])
-        .subscribe(render)
-    ;
+    return entity;
 }
 
 function physicsStep( entity ) {
@@ -59,25 +71,6 @@ function physicsStep( entity ) {
     return entity;
 }
 
-class Entity extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        var pos = this.props.pos;
-
-        return React.DOM.div(
-            {
-                className: "entity",
-                style: {
-                    left: pos.x + "px",
-                    top: pos.y + "px"
-                }
-            }
-        );
-    }
-}
 
 var ENTITY = React.createFactory(Entity);
 
@@ -90,10 +83,3 @@ function render( nodes ) {
         canvas
     );
 }
-
-function main() {
-    init();
-    animate();
-}
-
-main();
