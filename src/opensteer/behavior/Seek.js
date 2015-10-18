@@ -2,8 +2,8 @@ import ABehavior from "opensteer/behavior/ABehavior";
 import Vector from "opensteer/Vector";
 
 /**
- * @class Seek
- * @extends Behavior
+ * @class behavior.Seek
+ * @extends behavior.ABehavior
  */
 export default class Seek extends ABehavior {
 

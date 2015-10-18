@@ -3,6 +3,8 @@ import React from "react";
 export default class Entity extends React.Component {
     constructor(props) {
         super(props);
+
+        this.className = "entity";
     }
 
     render() {
@@ -10,7 +12,7 @@ export default class Entity extends React.Component {
 
         return React.DOM.div(
             {
-                className: "entity",
+                className: this.className,
                 style: {
                     left: pos.x + "px",
                     top: pos.y + "px"

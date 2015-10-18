@@ -42,7 +42,8 @@
     "jshint": "^2.8.0",
     "jshint-stylish": "^1.0.0",
     "jspm": "^0.16.12",
-    "mocha": "^2.3.3"
+    "mocha": "^2.3.3",
+    "rx": "^4.0.1"
   },
   "keywords": [],
   "jspm": {
@@ -55,8 +56,5 @@
       "babel-runtime": "npm:babel-runtime@^5.8.24",
       "core-js": "npm:core-js@^1.1.4"
     }
-  },
-  "dependencies": {
-    "rx": "^4.0.1"
   }
 }

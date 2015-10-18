@@ -11,18 +11,22 @@
     </script>
     <script src="../config.js"></script>
     <style>
-        .entity:before {
+        .target {
+            position: absolute;
+        }
+
+        .target:before {
             content: "×"
         }
 
-        .entity {
-            position: absolute;
+        .vehicle:before {
+            content: "▷"
         }
     </style>
 </head>
 <body>
 <script>
-    System.import("example/main");
+    System.import("example/seek/main");
 </script>
 </body>
 </html>
