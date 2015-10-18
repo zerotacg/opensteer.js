@@ -6,17 +6,22 @@ export default class Viewport extends React.Component {
     }
 
     render() {
+        var children = this.props.children;
+        var props = this.createProps();
+
+        return React.DOM.div(props, children);
+    }
+
+    createProps() {
         var size = this.props.size;
 
-        return React.DOM.div(
-            {
-                className: "viewport",
-                style: {
-                    width: size.width,
-                    height: size.height
-                }
+        return {
+            className: "viewport",
+            style: {
+                width: size.width,
+                height: size.height
             }
-        );
+        };
     }
 }
 

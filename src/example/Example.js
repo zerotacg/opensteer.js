@@ -1,6 +1,8 @@
 import ReactDOM from "react/lib/ReactDOM";
 import React from "react";
 
+import Viewport from "example/component/Viewport";
+
 export default class Example {
     constructor() {
         this.renderTarget = this.createRenderTarget();
@@ -20,7 +22,16 @@ export default class Example {
     }
 
     render() {
-        var viewport = React.DOM.div(this.viewport, this.children);
+        var viewport = this.createViewport();
         ReactDOM.render(viewport, this.renderTarget);
+    }
+
+    createViewport() {
+        var children = this.createChildren();
+        return React.createElement(Viewport, this.viewport, children);
+    }
+
+    createChildren() {
+        return [];
     }
 }

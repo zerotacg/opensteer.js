@@ -8,11 +8,15 @@ export default class Seek extends Example {
         super();
         this.vehicle = {};
         this.target = {};
-        this.init();
+        this.reset();
     }
 
-    init() {
-        this.children = [
+    reset() {
+        this.createChildren();
+    }
+
+    createChildren() {
+        return [
             this.createTarget(),
             this.createVehicle()
         ];
