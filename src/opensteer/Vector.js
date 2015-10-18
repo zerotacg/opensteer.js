@@ -158,6 +158,14 @@ export default class Vector {
     }
 }
 
+Vector.sub = function( a, b ) {
+    return a.copy().sub(b);
+};
+
+Vector.scale = function( v, f ) {
+    return v.copy().scale(f);
+};
+
 export const ZERO = new Vector(0, 0, 0);
 export const UX = new Vector(1, 0, 0);
 export const UY = new Vector(0, 1, 0);
