@@ -1,5 +1,8 @@
 var sqrt = Math.sqrt;
 
+/**
+ * @class opensteer.Vector
+ */
 export default class Vector {
     constructor() {
         this.x = 0;

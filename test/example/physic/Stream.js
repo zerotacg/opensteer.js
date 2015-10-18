@@ -6,18 +6,18 @@ var System = jspm.Loader();
 
 describe("example", function () {
     describe("physic", function () {
-        describe("Factory", function () {
-            var Factory;
+        describe("Stream", function () {
+            var Stream;
             var Vector;
 
             beforeEach("setup", function ( done ) {
                 var imports = [
-                    "example/physic/Factory",
+                    "example/physic/Stream",
                     "opensteer/Vector"
                 ];
                 Promise.all( imports.map( path => System.import(path) ) )
                     .then(modules => {
-                        Factory = modules[0].default;
+                        Stream = modules[0].default;
                         Vector = modules[1].default;
                     })
                     .then(done, done);
@@ -26,7 +26,7 @@ describe("example", function () {
             describe("#movement()", function () {
                 var factory;
                 beforeEach("setup", function () {
-                    factory = new Factory();
+                    factory = new Stream();
                 });
 
                 it("should return an observable", function () {

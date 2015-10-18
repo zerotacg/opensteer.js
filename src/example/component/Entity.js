@@ -5,18 +5,21 @@ export default class Entity extends React.Component {
         super(props);
 
         this.className = "entity";
+        this.state = {};
     }
 
     render() {
-        var pos = this.props.pos;
+        var pos = this.state.pos;
+        var style = {};
+        
+        if ( pos ) {
+
+        }
 
         return React.DOM.div(
             {
                 className: this.className,
-                style: {
-                    left: pos.x + "px",
-                    top: pos.y + "px"
-                }
+                style: style
             }
         );
     }
