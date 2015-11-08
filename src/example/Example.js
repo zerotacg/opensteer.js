@@ -2,11 +2,13 @@ import ReactDOM from "react/lib/ReactDOM";
 import React from "react";
 
 import Viewport from "example/component/Viewport";
+import Factory from "example/physic/Factory";
 
 export default class Example {
     constructor() {
         this.renderTarget = this.createRenderTarget();
         this.viewport = {};
+        this.factory = new Factory();
     }
 
     createRenderTarget() {

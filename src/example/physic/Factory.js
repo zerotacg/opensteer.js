@@ -20,12 +20,17 @@ export default class Factory {
         var last = pos.startWith(initialPosition);
         var current = last.skip(1).startWith(initialPosition);
 
+        last.subscribeOnNext(pos)
+
         this.tick
-            .withLatestFrom(last, current, acceleration, this.physicsStep )
+            .withLatestFrom(last, current, acceleration, this.physicsStep)
+            .subscribe(pos)
         ;
+
+        return pos.asObservable();
     }
 
-    physicsStep( last, current, acceleration ) {
+    physicsStep( tick, last, current, acceleration ) {
         var next = new Vector(current);
         next.scale(2);
         next.sub(last);
@@ -37,14 +42,14 @@ export default class Factory {
     /**
      * @param {Rx.Observable<opensteer.Vector>} position
      */
-    movement(position) {
+    movement( position ) {
         return position.pairwise().map(this.deltaPosition);
     }
 
-    deltaPosition(positions) {
-        var prev = positions[0];
-        var next = positions[1];
+    deltaPosition( positions ) {
+        var prev = positions[ 0 ];
+        var next = positions[ 1 ];
 
-        return Vector.sub( next, prev );
+        return Vector.sub(next, prev);
     }
 }
