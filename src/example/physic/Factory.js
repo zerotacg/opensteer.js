@@ -14,6 +14,7 @@ export default class Factory {
     /**
      * @param {Rx.Observable<opensteer.Vector>} position
      * @param {Rx.Observable<opensteer.Vector>} acceleration
+     * @return {Rx.Observable<opensteer.Vector>}
      */
     position( position, acceleration ) {
         var movement = position.pairwise();

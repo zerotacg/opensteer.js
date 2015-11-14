@@ -24,6 +24,12 @@ export default class Entity extends React.Component {
         this.subscription = null;
     }
 
+    componentWillReceiveProps( nextProps ) {
+        this.componentWillUnmount();
+        this.props = nextProps;
+        this.componentWillMount();
+    }
+
     render() {
         var position = this.state.position;
         var style = {};

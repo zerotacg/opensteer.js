@@ -9,6 +9,13 @@ import { ZERO, default as Vector } from "opensteer/Vector";
 export default class Seek extends Example {
     constructor() {
         super();
+        this.subscriptions = [];
+    }
+
+    reset() {
+        this.subscriptions.map(subscription => subscription.dispose() );
+        this.subscriptions = [];
+        super.reset();
     }
 
     createChildren() {
@@ -31,8 +38,8 @@ export default class Seek extends Example {
     }
 
     createVehicle() {
-        var x = Math.random() * 640;
-        var y = Math.random() * 480;
+        var x = Math.random() * 620 + 10;
+        var y = Math.random() * 460 + 10;
         var start = new Vector(x, y, 0);
         var position = new Rx.Subject();
         var acceleration = new Rx.Subject();
@@ -40,18 +47,16 @@ export default class Seek extends Example {
         var target = Rx.Observable.return( new Vector(320, 240, 0) );
 
         var steering = position.withLatestFrom(target, (src, dst) => {
-            return Vector.sub(dst, src).normalize().scale(10);
-        });
-
-        position.withLatestFrom(target, (src, dst) => {
-            var distance = Vector.sub(dst, src).length();
-            if ( distance < 20 ) {
+            var distance = Vector.sub(dst, src);
+            if ( distance.length() < 1 ) {
                 this.reset();
             }
-        }).publish().connect();
+            return distance.normalize().scale(10);
+        });
 
-        integration.subscribe(position);
-        steering.subscribe(acceleration);
+        var subscriptions = this.subscriptions;
+        subscriptions.push(integration.subscribe(position));
+        subscriptions.push(steering.subscribe(acceleration));
 
         return React.createElement(Vehicle, {
             key: "vehicle",

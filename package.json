@@ -48,6 +48,7 @@
   "keywords": [],
   "jspm": {
     "dependencies": {
+      "cannon": "npm:cannon@^0.6.2",
       "react": "npm:react@^0.14.0",
       "rx": "npm:rx@^4.0.1"
     },

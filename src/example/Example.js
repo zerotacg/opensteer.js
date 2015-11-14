@@ -7,7 +7,6 @@ import Factory from "example/physic/Factory";
 export default class Example {
     constructor() {
         this.renderTarget = this.createRenderTarget();
-        this.viewport = {};
         this.factory = new Factory();
     }
 
@@ -19,11 +18,11 @@ export default class Example {
         return div;
     }
 
-    main() {
-        this.reset();
+    reset() {
+        this.render();
     }
 
-    reset() {
+    main() {
         this.render();
     }
 
@@ -33,8 +32,9 @@ export default class Example {
     }
 
     createViewport() {
+        var props = {};
         var children = this.createChildren();
-        return React.createElement(Viewport, this.viewport, children);
+        return React.createElement(Viewport, props, children);
     }
 
     createChildren() {
