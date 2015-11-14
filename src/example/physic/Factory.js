@@ -12,25 +12,22 @@ export default class Factory {
     }
 
     /**
-     * @param {opensteer.Vector} initialPosition
+     * @param {Rx.Observable<opensteer.Vector>} position
      * @param {Rx.Observable<opensteer.Vector>} acceleration
      */
-    position( initialPosition, acceleration ) {
-        var pos = new Rx.Subject();
-        var last = pos.startWith(initialPosition);
-        var current = last.skip(1).startWith(initialPosition);
+    position( position, acceleration ) {
+        var movement = position.pairwise();
+        acceleration = acceleration.startWith(new Vector(0,0,0));
 
-        last.subscribeOnNext(pos)
-
-        this.tick
-            .withLatestFrom(last, current, acceleration, this.physicsStep)
-            .subscribe(pos)
-        ;
-
-        return pos.asObservable();
+        return (
+            this.tick
+            .withLatestFrom(movement, acceleration, this.physicsStep)
+        );
     }
 
-    physicsStep( tick, last, current, acceleration ) {
+    physicsStep( tick, movement, acceleration ) {
+        var last = movement[0];
+        var current = movement[1];
         var next = new Vector(current);
         next.scale(2);
         next.sub(last);

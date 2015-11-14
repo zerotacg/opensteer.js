@@ -20,6 +20,10 @@ export default class Example {
     }
 
     main() {
+        this.reset();
+    }
+
+    reset() {
         this.render();
     }
 
