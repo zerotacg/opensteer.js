@@ -1,5 +1,5 @@
 import Rx from "rx";
-import Vector from "opensteer/Vector";
+import { ZERO, default as Vector } from "opensteer/Vector";
 
 export default class Factory {
 
@@ -17,8 +17,8 @@ export default class Factory {
      * @return {Rx.Observable<opensteer.Vector>}
      */
     position( position, acceleration ) {
-        var movement = position.pairwise();
-        acceleration = acceleration.startWith(new Vector(0,0,0));
+        var movement = position.merge(position.take(1)).pairwise();
+        acceleration = acceleration.startWith(ZERO);
 
         return (
             this.tick

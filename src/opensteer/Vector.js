@@ -169,6 +169,14 @@ Vector.scale = function( v, f ) {
     return v.copy().scale(f);
 };
 
+Vector.normalize = function( v ) {
+    return v.copy().normalize();
+};
+
+Vector.magnitude = function( v ) {
+    return v.length();
+};
+
 export const ZERO = new Vector(0, 0, 0);
 export const UX = new Vector(1, 0, 0);
 export const UY = new Vector(0, 1, 0);

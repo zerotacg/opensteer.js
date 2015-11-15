@@ -1,7 +1,7 @@
 import { apply } from "opensteer/utilities";
 
 /**
- * @class ABehavior
+ * @class opensteer.behavior.ABehavior
  * @abstract
  */
 export default class ABehavior {

@@ -2,8 +2,8 @@ import ABehavior from "opensteer/behavior/ABehavior";
 import Vector from "opensteer/Vector";
 
 /**
- * @class behavior.Seek
- * @extends behavior.ABehavior
+ * @class opensteer.behavior.Seek
+ * @extends opensteer.behavior.ABehavior
  */
 export default class Seek extends ABehavior {
 
@@ -20,4 +20,11 @@ export default class Seek extends ABehavior {
 
         return steer;
     }
+}
+
+Seek.steer = function( src, dst, maxSpeed ) {
+    var steer = Vector.sub(dst, src);
+    steer = Vector.normalize(steer);
+
+    return Vector.scale( steer, maxSpeed );
 };
