@@ -6,11 +6,11 @@ import Factory from "example/physic/Factory";
 
 export default class Example {
     constructor() {
-        this.renderTarget = this.createRenderTarget();
+        this.viewPort = this.createViewport();
         this.factory = new Factory();
     }
 
-    createRenderTarget() {
+    createViewport() {
         var body = document.body;
         var div = document.createElement("div");
         body.appendChild(div);
@@ -18,26 +18,22 @@ export default class Example {
         return div;
     }
 
-    reset() {
-        this.render();
-    }
-
     main() {
         this.render();
     }
 
     render() {
-        var viewport = this.createViewport();
-        ReactDOM.render(viewport, this.renderTarget);
+        var viewport = this.renderViewport();
+        ReactDOM.render(viewport, this.viewPort);
     }
 
-    createViewport() {
+    renderViewport() {
         var props = {};
-        var children = this.createChildren();
+        var children = this.renderChildren();
         return React.createElement(Viewport, props, children);
     }
 
-    createChildren() {
+    renderChildren() {
         return [];
     }
 }

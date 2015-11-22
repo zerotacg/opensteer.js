@@ -10,59 +10,71 @@ import SeekBehavior from "opensteer/behavior/Seek";
 export default class Seek extends Example {
     constructor() {
         super();
-        this.subscriptions = [];
-        this.reset = this.reset.bind(this);
+        this.targetPosition = this.createTargetPosition();
+        this.vehicleStart = new Rx.Subject();
+        this.vehiclePosition = this.createVehiclePosition( this.vehicleStart, this.targetPosition );
+    }
+
+    createTargetPosition() {
+        return Rx.Observable.return(new Vector(320, 240, 0));
+    }
+
+    main() {
+        super.main();
+        this.reset();
     }
 
     reset() {
-        this.subscriptions.map(subscription => subscription.dispose() );
-        this.subscriptions = [];
-        super.reset();
-    }
-
-    createChildren() {
-        return [
-            this.createTarget(),
-            this.createVehicle()
-        ];
-    }
-
-    createTarget() {
-        var position = Rx.Observable.return({
-            x: 320,
-            y: 240
-        });
-
-        return React.createElement(Target, {
-            key: "target",
-            position
-        });
-    }
-
-    createVehicle() {
         var x = Math.random() * 620 + 10;
         var y = Math.random() * 460 + 10;
         var start = new Vector(x, y, 0);
+        this.vehicleStart.onNext(start);
+    }
+
+    renderChildren() {
+        return [
+            this.renderTarget(),
+            this.renderVehicle()
+        ];
+    }
+
+    renderTarget() {
+        return React.createElement(Target, {
+            key: "target",
+            position: this.targetPosition
+        });
+    }
+
+    renderVehicle() {
+        return React.createElement(Vehicle, {
+            key: "vehicle",
+            position: this.vehiclePosition
+        });
+    }
+
+    createVehiclePosition( start, target ) {
+        return start.flatMap( this.createVehiclePositions.bind( this, target ) );
+    }
+
+    createVehiclePositions( target, start ) {
         var position = new Rx.Subject();
         var acceleration = new Rx.Subject();
-        var integration = this.factory.position(position, acceleration );
-        var target = Rx.Observable.return( new Vector(320, 240, 0) );
+        var integration = this.factory.position(position, acceleration);
 
-        var maxSpeed = Rx.Observable.return( 10 );
+        var maxSpeed = Rx.Observable.return(10);
         var steering = position.withLatestFrom(target, maxSpeed, SeekBehavior.steer);
-        var reset = target.combineLatest(position, Vector.sub).map(Vector.magnitude).filter(this.shouldReset);
+        var reset = target.combineLatest(position, Vector.sub).map(Vector.magnitude).filter(this.shouldReset).take(1).delay(750);
 
-        var subscriptions = this.subscriptions;
-        subscriptions.push(integration.subscribe(position));
-        subscriptions.push(steering.subscribe(acceleration));
-        subscriptions.push(reset.delay(750).subscribeOnNext( this.reset ));
+        integration.subscribe(position);
+        steering.subscribe(acceleration);
+        reset.subscribeOnNext(() => {
+            position.onCompleted();
+            this.reset();
+        });
 
         position.onNext(start);
 
-        return React.createElement(Vehicle, {
-            key: "vehicle",
-            position
-        });
+        return position;
     }
 
     shouldReset( distance ) {
