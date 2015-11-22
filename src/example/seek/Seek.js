@@ -59,7 +59,7 @@ export default class Seek extends Example {
     createVehiclePositions( target, start ) {
         var position = new Rx.Subject();
         var acceleration = new Rx.Subject();
-        var integration = this.factory.position(position, acceleration);
+        var integration = this.factory.verletIntegration(position, acceleration);
 
         var maxSpeed = Rx.Observable.return(10);
         var steering = position.withLatestFrom(target, maxSpeed, SeekBehavior.steer);

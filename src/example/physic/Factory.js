@@ -16,38 +16,42 @@ export default class Factory {
      * @param {Rx.Observable<opensteer.Vector>} acceleration
      * @return {Rx.Observable<opensteer.Vector>}
      */
-    position( position, acceleration ) {
-        var movement = position.merge(position.take(1)).pairwise();
+    verletIntegration( position, acceleration ) {
+        var movement = this.movement(position);
         acceleration = acceleration.startWith(ZERO);
 
         return (
             this.tick
-            .withLatestFrom(movement, acceleration, this.physicsStep)
+                .withLatestFrom(movement, acceleration, this.physicsStep)
         );
-    }
-
-    physicsStep( tick, movement, acceleration ) {
-        var last = movement[0];
-        var current = movement[1];
-        var next = new Vector(current);
-        next.scale(2);
-        next.sub(last);
-        next.add(Vector.scale(acceleration, this.dt_square));
-
-        return next;
     }
 
     /**
      * @param {Rx.Observable<opensteer.Vector>} position
+     * @return {Rx.Observable<opensteer.Vector[2]>} position
      */
     movement( position ) {
-        return position.pairwise().map(this.deltaPosition);
+        return position.merge(position.take(1)).pairwise();
     }
 
-    deltaPosition( positions ) {
-        var prev = positions[ 0 ];
-        var next = positions[ 1 ];
+    /**
+     *
+     * @param tick
+     * @param {Rx.Observable<opensteer.Vector[2]>} movement
+     * @param {Rx.Observable<opensteer.Vector>} acceleration
+     * @returns {*}
+     */
+    physicsStep( tick, movement, acceleration ) {
+        var previous = movement[ 0 ];
+        var current = movement[ 1 ];
+        var next;
 
-        return Vector.sub(next, prev);
+        next = Vector.scale(current, 2);
+        next = Vector.sub(next, previous);
+        acceleration = Vector.scale(acceleration, this.dt_square);
+        next = Vector.add(next, acceleration);
+
+        return next;
     }
+
 }

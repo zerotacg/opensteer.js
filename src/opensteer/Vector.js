@@ -161,6 +161,10 @@ export default class Vector {
     }
 }
 
+Vector.add = function( a, b ) {
+    return a.copy().add(b);
+};
+
 Vector.sub = function( a, b ) {
     return a.copy().sub(b);
 };
