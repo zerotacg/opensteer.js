@@ -9,6 +9,7 @@ describe("example", function () {
         describe("Factory", function () {
             var Factory;
             var Vector;
+            var scheduler;
 
             beforeEach("setup", function ( done ) {
                 var imports = [
@@ -19,6 +20,8 @@ describe("example", function () {
                     .then(modules => {
                         Factory = modules[0].default;
                         Vector = modules[1].default;
+
+                        scheduler = new Rx.TestScheduler();
                     })
                     .then(done, done);
             });
@@ -35,18 +38,19 @@ describe("example", function () {
                     expect(factory.movement(position)).to.be.an.instanceOf(Rx.Observable);
                 });
 
-                it("should the distance between 2 consecutive positions", function (done) {
-                    var position = Rx.Observable.fromArray([
-                        new Vector(1,2,3),
-                        new Vector(3,2,1)
-                    ]);
+                it("should duplicate the first position", function () {
+                    var onNext = Rx.ReactiveTest.onNext;
+                    var position = scheduler.createColdObservable(
+                        onNext(100, new Vector(1,2,3) ),
+                        onNext(200, new Vector(3,2,1) )
+                    );
 
                     var movement = factory.movement(position);
-                    movement.subscribeOnError(done);
-                    movement.subscribeOnNext(movement => {
-                        expect(movement.toObject()).to.deep.equal({ x: 2, y: 0, z: -2 });
-                        done();
-                    });
+                    var messages = scheduler.startScheduler(() => movement).messages;
+
+                    expect(messages).to.have.length(2);
+                    expect(messages[0].toString()).to.equal("OnNext({ x: 1, y: 2, z: 3},{ x: 1, y: 2, z: 3})@300");
+                    expect(messages[1].toString()).to.equal("OnNext({ x: 1, y: 2, z: 3},{ x: 3, y: 2, z: 1})@400");
                 });
             });
         });
